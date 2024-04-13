@@ -1,0 +1,17 @@
+
+> print(gmoran)
+
+	Moran I test under randomisation
+
+data:  ois2$ratio_all  
+weights: nbw  n reduced by no-neighbour observations
+  
+
+Moran I statistic standard deviate = 26.49, p-value < 2.2e-16
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+     0.4464975738     -0.0007283321      0.0002850316 
+
+
+> sink()
