@@ -63,7 +63,7 @@ dir.create(
 # count points into the polygons------------------------------------------------
 # subset of lightning data according to i -year- for each year 
 
-for (i in 2016:2018) {
+for (i in 2016:2022) {
   lightning_year <- lightning_dt[year == i,]
   
   # count points into the polygons
