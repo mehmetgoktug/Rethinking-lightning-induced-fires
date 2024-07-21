@@ -1,5 +1,5 @@
 ################################################################################
-# title: Calculate Local Moran's I - Figure 5
+# title: Calculate Local Moran's I - Figure 7
 # author: Mehmet Göktuğ Öztürk 
 # project: Rethinking lightning-induced fires: Spatial variability and 
 #          implications for management policies
@@ -66,7 +66,7 @@ l_plot <- ggplot() +
     )
   ) +
   labs(
-    fill = "LISA Values",
+    fill = "LISA Clusters",
     x = "Longitude",
     y = "Latitude"
   ) + 
@@ -80,7 +80,7 @@ l_plot <- ggplot() +
 
 # save plot
 ggsave(
-  "./figs/fig5.png", 
+  "./figs/fig7.png", 
   plot = l_plot, 
   width = 10, 
   height = 6, 

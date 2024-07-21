@@ -34,7 +34,7 @@ plot1 <- ggplot(data = df1, aes(x = n, y = obm)) +
   labs(
     x = "Number of Fires",
     y = "Forest Regional Directorate",
-    fill = "Primary Cause"
+    fill = "Cause"
   ) +
   theme_minimal() +
   theme(
@@ -73,7 +73,7 @@ plot2 <- df_joined |>
   labs(
     x = "Proportion of Fire Causes",
     y = "Forest Regional Directorate",
-    fill = "Primary Cause"
+    fill = "Cause"
   ) +
   theme_minimal() +
   theme(

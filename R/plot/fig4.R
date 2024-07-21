@@ -26,7 +26,7 @@ r1 <- fire |>
 		)
 	)) |>
   filter(obm %in% c("izmir", "mugla", "istanbul")) |>
-    group_by(year, primary_cause, obm) |>
+  group_by(year, primary_cause, obm) |>
   summarise(n = n()) |>
   ungroup() |>
   mutate(primary_cause = fct_reorder(
@@ -39,7 +39,7 @@ r2 <- fire |>
 		)
 	)) |>
   filter(obm %in% c("bolu", "erzurum", "elazig")) |>
-    group_by(year, primary_cause, obm) |>
+  group_by(year, primary_cause, obm) |>
   summarise(n = n()) |>
   ungroup() |>
   mutate(primary_cause = fct_reorder(
@@ -60,7 +60,7 @@ g1 <- ggplot(
 	labs(
 		x = "Years",
 		y = "Number of Fires",
-		fill = "Primary Cause",
+		fill = "Cause",
 	) +
   theme_minimal() +
   theme(
@@ -85,7 +85,7 @@ g2 <- ggplot(
 	labs(
 		x = "Years",
 		y = "Number of Fires",
-		fill = "Primary Cause",
+		fill = "Cause",
 	) +
   theme_minimal() +
   theme(

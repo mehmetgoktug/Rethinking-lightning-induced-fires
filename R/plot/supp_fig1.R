@@ -1,57 +1,94 @@
 ################################################################################
-# title: Supplement Figure 1
+# title: Supplement Figure 2
 # author: Mehmet Göktuğ Öztürk
 # project: Rethinking lightning-induced fires: Spatial variability and 
 #          implications for management policies
 ################################################################################
 
 # load packages ----------------------------------------------------------------
-libs <- c("readr", "dplyr", "forcats", "ggplot2", "gridExtra")
-sapply(libs, require, character.only = TRUE) |> suppressPackageStartupMessages()
+library(tidyverse)
+library(sf)
 
-# read fire data ---------------------------------------------------------------
-fire <- read_csv("./data/output/ogm/fire_data/fire_tidy2.csv")
+# read data --------------------------------------------------------------------
+obm <- read_sf("./data/output/ogm/boundaries/obm.gpkg")
+oim <- read_sf("./data/output/ogm/boundaries/oim.gpkg")
+ois <- read_sf("./data/output/ogm/boundaries/ois.gpkg")
 
-# plot -------------------------------------------------------------------------
-# create palette
-graph_cols <- c(
-  "lightning" = "#7de167", "human" = "#e16767", "unknown" = "#6776e1"
-)
-graph_palette <- colorRampPalette(graph_cols)(3)
-names(graph_palette) <- names(graph_cols)
+# OBM MAP ----------------------------------------------------------------------
+# select only obm's
+obm2 <- obm |>
+	slice(1:28) |>
+  mutate(obm = str_to_title(obm))
 
-df <- fire |> 
-  group_by(month, primary_cause) |>
-  summarise(n = n()) |>
-  ungroup() |>
-  mutate(
-    primary_cause = fct_reorder(
-      as.character(primary_cause), n, .desc = TRUE
-    )
-  )
-
-plot <- ggplot(data = df, aes(x = month, y = n, fill = primary_cause)) +
-  geom_bar(stat = "identity") +
-  scale_fill_manual(values = graph_palette) +
-  scale_x_continuous(breaks = seq(1, 12, by = 1)) +
-  labs(
-    x = "Months",
-    y = "Number of Fires",
-    fill = "Primary Cause"
-  ) +
+# plot
+obm_plot <- ggplot() +
+	geom_sf(data = obm) +
+  geom_sf(data = obm2) +
+  geom_sf_label(data = obm2, label = obm2$obm, size = 2.5) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  coord_sf(crs = "EPSG:3857") +
   theme_minimal() +
   theme(
-    plot.background = element_rect("white", colour = "white"),
-    text = element_text(family = "Ubuntu Mono", size = 16),
-    title = element_text(face = "bold")
+    panel.background = element_rect(colour = "white"),
+    plot.background = element_rect(colour = "white"),
+    text = element_text(family = "Ubuntu Mono", size = 16)
   )
 
 # save plot
 ggsave(
-  "./figs/supp_fig1.png", 
-  plot = plot, 
-  width = 10, 
-  height = 6, 
+  filename = "./figs/obm.png",
+  width = 10,
+  height = 6,
+  dpi = 600,
+  device = "png",
+  obm_plot
 )
 
+# OIM MAP ----------------------------------------------------------------------
+# plot
+oim_plot <- ggplot() +
+	geom_sf(data = oim) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  coord_sf(crs = "EPSG:3857") +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(colour = "white"),
+    plot.background = element_rect(colour = "white"),
+    text = element_text(family = "Ubuntu Mono", size = 16)
+  )
 
+# save plot
+ggsave(
+  filename = "./figs/oim.png",
+  width = 10,
+  height = 6,
+  dpi = 600,
+  device = "png",
+  oim_plot
+)
+
+# OIS MAP ----------------------------------------------------------------------
+# plot
+ois_plot <- ggplot() +
+	geom_sf(data = ois) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  coord_sf(crs = "EPSG:3857") +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(colour = "white"),
+    plot.background = element_rect(colour = "white"),
+    text = element_text(family = "Ubuntu Mono", size = 16)
+  )
+
+# save plot
+ggsave(
+  filename = "./figs/ois.png",
+  width = 10,
+  height = 6,
+  dpi = 600,
+  device = "png",
+  ois_plot
+)

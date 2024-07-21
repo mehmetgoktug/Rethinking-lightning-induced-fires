@@ -31,16 +31,23 @@ These instructions will guide users on how to replicate the analysis using RStud
    3. Run `./R/tidy_fire.R` to clean and standardize wildfire data, including necessary spatial transformations.
    4. Run `./R/edit_values.R` to manually adjust wildfire data to ensure correct joins.
    5. Run `./R/calc_lightning_count.R` to generate 1x1 km grids and calculate the lightning count for each grid cell.
+   6. Run `./R/calc_lightning_count/for_local_units.R` to calculate the lightning count for each local units.
+   7. Run `./R/create_data_to_model.R` to create data to model the association of LIW's and lightnings.
 
-3. **Results: Figures and Tables**
-   1. Run `./R/plot/fig1a.R` to generate Figure 1a, showing the spatial variability of lightning occurrence.
-   2. Run `./R/plot/fig1b.R` to generate Figure 1b, illustrating the spatial variability of lightning-induced fire percentages by local unit.
-   3. Run `./R/plot/fig1c.R` to generate Figure 1c, depicting the distribution of the total number of fires by local unit.
-   4. Run `./R/plot/fig2.R` to generate Figure 2, which displays the total number of recorded fires and their relative proportions by cause (human-caused, lightning-induced, and unknown origin) across regional units.
-   5. Run `./R/plot/fig3.R` to generate Figure 3, presenting representative examples of major trends in fire causes across regional units.
-   6. Run `./R/plot/fig4.R` to generate Figure 4, showing annual trends in fire causes from 2002 to 2022 for the regional units depicted in Figure 3.
-   7. Run `./R/gmoran.R` to calculate Global Moran's *I*, a measure of spatial autocorrelation.
-   8. Run `./R/plot/fig5.R` to calculate Local Moran's *I* and generate Figure 5, which shows the distribution of lightning-induced fire clusters across Türkiye.
-   9. Run `./R/table1.R` to generate Table 1 and Supplement Table 1, displaying the percentage of fire incidents and burned area by fire size class in selected regions and across all of Türkiye.
-   10. Run `./R/plot/supp_fig1.R` to generate Supplement Figure 1, detailing the monthly distribution of wildfires by origin in Türkiye.
-   11. Run `./R/supp_table2.R` to generate Supplement Table 2, showing the top-10 local units with the highest percentage of lightning-induced fires.
+3. **Results: Analysis, Figures and Tables**
+   1. Run `./R/linear_model-fig6.R` to create linear and logistic regression models to evaluate the association of LIW's and lightnings.
+   2. Run `./R/plot/fig1a.R` to generate Figure 1a, showing the spatial variability of lightning occurrence.
+   3. Run `./R/plot/fig1b.R` to generate Figure 1b, illustrating the spatial variability of lightning-induced fire percentages by local unit.
+   4. Run `./R/plot/fig1c.R` to generate Figure 1c, depicting the distribution of the total number of fires by local unit.
+   5. Run `./R/plot/fig2.R` to generate Figure 2, which displays the total number of recorded fires and their relative proportions by cause (human-caused, lightning-induced, and unknown origin) across regional units.
+   6. Run `./R/plot/fig3.R` to generate Figure 3, presenting representative examples of major trends in fire causes across regional units.
+   7. Run `./R/plot/fig4.R` to generate Figure 4, showing annual trends in fire causes from 2002 to 2022 for the regional units depicted in Figure 3.
+   8. Run `./R/plot/fig5a.R` to generate Figure 5a, detailing the yearly distribution of wildfires by origin in Türkiye.
+   9. Run `./R/plot/fig5b.R` to generate Figure 5b, detailing the monthly distribution of wildfires by origin in Türkiye.
+   10. Run `./R/gmoran.R` to calculate Global Moran's *I*, a measure of spatial autocorrelation.
+   11. Run `./R/plot/fig7.R` to calculate Local Moran's *I* and generate Figure 5, which shows the distribution of lightning-induced fire clusters across Türkiye.
+   12. Run `./R/plot/supp_fig1.R` to generate Supplement Figure 1, showing administrative boundaries.
+   13. Run `./R/table1.R` to generate Table 1, displaying the distribution of forest management unit sizes.
+   14. Run `./R/table2.R` to generate Table 2 and Supplement Table 1, displaying the percentage of fire incidents and burned area by fire size class in selected regions and across all of Türkiye.
+   15. Run `./R/supp_table2.R` to generate Supplement Table 2, showing the number and percentage of wildfires of different origin by regional units.
+   16. Run `./R/supp_table3.R` to generate Supplement Table 3, showing the top-10 local units with the highest percentage of lightning-induced fires.

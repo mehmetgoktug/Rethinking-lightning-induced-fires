@@ -66,12 +66,6 @@ grd_palette <- colorRampPalette(grd_cols)(11)
 
 plot <- ggplot() +
   geom_stars(data = lightning_stars, aes()) +
-  geom_sf(
-    data = tr_il,
-    fill = NA,
-    colour = "grey12",
-    linewidth = .2
-  ) +
   scale_fill_gradientn(
     colours = grd_palette, 
     breaks = grd_breaks, 

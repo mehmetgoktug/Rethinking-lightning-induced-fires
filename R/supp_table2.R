@@ -6,29 +6,41 @@
 ################################################################################
 
 # load packages ----------------------------------------------------------------
-library(tidyverse)
+libs <- c("readr", "dplyr", "tidyr")
+sapply(libs, require, character.only = TRUE) |> suppressPackageStartupMessages()
 
-# read fire data ---------------------------------------------------------------
+# read fire data
 fire <- read_csv("./data/output/ogm/fire_data/fire_tidy2.csv")
 
-# create table -----------------------------------------------------------------
-fire_ratio_ois <- fire |> 
-  group_by(ois, obm, primary_cause) |> 
-  count() |> 
-  group_by(ois, obm) |> 
-  summarise(
-    total_fires = sum(n),
-    lightning_fires = sum(n[primary_cause == "lightning"]),
-    human_fires = sum(n[primary_cause == "human"]),
-    unknown_fires = sum(n[primary_cause == "unknown"]),
-    lightning_fire_ratio = round(lightning_fires * 100 / total_fires),
-    human_fire_ratio = round(human_fires * 100 / total_fires),
-    unknown_fire_ratio = round(unknown_fires * 100 / total_fires)
-  ) |> 
-  select(-lightning_fires, -human_fires, -unknown_fires) |> 
-  filter(total_fires > 9) |> 
-  arrange(desc(lightning_fire_ratio)) |> 
-  head(10)
+df <- fire |> 
+  group_by(obm, primary_cause) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  pivot_wider(names_from = primary_cause, values_from = n)
 
-# write table ------------------------------------------------------------------
-write_csv(fire_ratio_ois, "supp_table2.csv")
+ratios <- df |>
+  group_by(obm) |>
+  summarise(
+    total = sum(human, lightning, unknown),
+    human_ratio = round(human / total * 100, digits = 1),
+    lightning_ratio = round(lightning / total * 100, digits = 1),
+    unknown_ratio = round(unknown / total * 100, digits = 1)
+  ) |>
+  ungroup()
+
+df_joined <- df |>
+  left_join(ratios, by = "obm") |>
+  rename(
+    "Regional unit" = "obm",
+    "Human" = "human",
+    "Lightning" = "lightning",
+    "Unknown" = "unknown",
+    "Total" = "total",
+    "Human (%)" = "human_ratio",
+    "Lightning (%)" = "lightning_ratio",
+    "Unknown (%)" = "unknown_ratio"
+  ) |>
+  relocate(Total, .before = "Human")
+
+# write table
+write_csv(df_joined, "supp_table2.csv")
